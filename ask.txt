@@ -1,0 +1,729 @@
+I'm making a C# Text Advenutre game for the console/terminal/shell/tty. Am using .NET 7.0
+
+I got started with a Program.cs
+
+It's pretty big so I want to break it down into smaller chunks by copying the relative sections to individual programs.
+
+Here is the Program.cs
+
+$ cat Program.cs
+// See https://aka.ms/new-console-template for more information
+using System;
+
+class TextAdventureGame
+{
+	static void Main(string[] args)
+	{
+		Console.WriteLine("You find yourself standing in a dimly lit forest clearing.");
+		Console.WriteLine("An ancient, moss-covered oak stands tall in the center, its branches reaching towards the dusky sky.");
+		Console.WriteLine("To the north, you see a narrow path leading deeper into the woods.");
+		Console.WriteLine("To the east, a faint light flickers in the distance. What do you do?");
+
+		string choice = GetValidInput("North or East?", new string[] { "north", "east" });
+
+		switch (choice)
+		{
+			case "north":
+				NorthPath(choice);
+				break;
+			case "east":
+				EastPath();
+				break;
+		}
+	}
+
+	static string GetValidInput(string prompt, string[] validOptions)
+	{
+		string? input;
+		do
+		{
+			Console.WriteLine(prompt);
+			input = Console.ReadLine();
+
+			if (string.IsNullOrEmpty(input))
+			{
+				Console.WriteLine("No input received. Please try again.");
+				continue;
+			}
+
+			input = input.ToLower();
+
+			if (!validOptions.Contains(input))
+			{
+				Console.WriteLine("Invalid choice. Please choose from the following options:");
+				foreach (string option in validOptions)
+				{
+					Console.WriteLine(option);
+				}
+			}
+		} while (!validOptions.Contains(input));
+
+		return input!; // At this point, input is guaranteed to be non-null and valid
+	}
+
+
+	static void NorthPath(string choice)
+	{
+		Console.WriteLine("You venture north, following the path deeper into the forest. Sunlight filters through the dense canopy, dappling the ground with light and shadow.");
+		Console.WriteLine("As you walk, you hear the chirping of birds and the rustling of leaves in the breeze. Squirrels scamper up the trees, their bushy tails a flash of brown.");
+		Console.WriteLine("After a while, the path opens up into a small clearing. Wildflowers bloom in vibrant colors, and a gentle breeze carries their sweet scent.");
+		Console.WriteLine("Further along the path, you see a lone figure sitting on a fallen log. As you approach, you realize it's an old woman, her face etched with wrinkles and her eyes filled with wisdom.");
+
+		string greet = GetValidInput("Greet the old woman (yes/no)?", new string[] { "yes", "no" });
+
+		switch (greet)
+		{
+			case "yes":
+				Console.WriteLine("The old woman smiles warmly as you approach. 'Welcome, traveler,' she says. 'The forest holds many secrets. Where are you headed?'");
+
+				// Presenting options to the player
+				Console.WriteLine("She asks, 'Where are you headed?'");
+				Console.WriteLine("1. To explore the forest further.");
+				Console.WriteLine("2. To seek shelter from the night.");
+				Console.WriteLine("3. To ask about the forest's secrets.");
+				Console.Write("Choose an option: ");
+				int option = Convert.ToInt32(Console.ReadLine());
+
+
+				// Handling the player's choice
+				switch (option)
+				{
+					case 1:
+						Console.WriteLine("You decide to continue exploring the forest. The path ahead looks inviting and full of mysteries.");
+						// Continue the game based on this choice
+						break;
+					case 2:
+						Console.WriteLine("You decide to seek shelter from the night. The old woman offers you a place under her makeshift tent.");
+						// Implement shelter logic here
+						break;
+					case 3:
+						Console.WriteLine("Curiosity piqued, you ask the old woman about the forest's secrets. She begins to share tales of ancient magic and hidden treasures.");
+						// Implement secret sharing logic here
+						break;
+					default:
+						Console.WriteLine("That's not a valid option. Try again.");
+						// Re-prompt the player to choose an option
+						break;
+				}
+
+				break;
+			case "no":
+				Console.WriteLine("The old woman nods understandingly. 'Suit yourself, traveler. The forest whispers its secrets to those who listen.'");
+				break;
+		}
+
+		Console.WriteLine("Continuing your journey north, the path narrows again. The trees grow taller and denser, casting long shadows.");
+		Console.WriteLine("Finally, you reach a fork in the road. One path seems well-worn and easy to follow, while the other is overgrown and shrouded in shadows. Which path do you choose (left/right)?");
+
+		choice = GetValidInput("Left or Right?", new string[] { "left", "right" });
+
+		switch (choice)
+		{
+			case "left":
+            Console.WriteLine("You take the well-worn path to the left.");
+            // Add more story for the left path
+            break;
+        case "right":
+            Console.WriteLine("You bravely choose the overgrown path to the right.");
+            // Add more story for the right path
+            break;
+        default:
+            Console.WriteLine("Invalid choice. The path fades away and you find yourself back at the start.");
+            break;
+		}
+	}
+
+	static void EastPath()
+	{
+		Console.WriteLine("Intrigued by the light, you head east towards the flickering source.");
+		Console.WriteLine("As you move closer, the forest begins to thin out, and the air becomes warmer.");
+		Console.WriteLine("After walking for about half an hour, you emerge from the treeline to find a small, quaint village.");
+		Console.WriteLine("The flickering light you saw earlier comes from a large bonfire in the village square.");
+		Console.WriteLine("Villagers are gathered around, some dancing, others talking animatedly.");
+
+		string choice = GetValidInput("Do you approach the village or observe from afar? (approach/observe)", new string[] { "approach", "observe" });
+
+		switch (choice)
+		{
+			case "approach":
+				ApproachVillage();
+				break;
+			case "observe":
+				ObserveVillage();
+				break;
+		}
+	}
+
+	static void ApproachVillage()
+	{
+		Console.WriteLine("You decide to approach the village. As you near, a few villagers notice you and wave warmly.");
+		Console.WriteLine("An elderly man with a kind smile steps forward to greet you.");
+		Console.WriteLine("'Welcome, traveler!' he says. 'You've arrived just in time for our harvest festival. What brings you to our humble village?'");
+
+		string reason = GetValidInput("Why are you here? (explore/rest/trade)", new string[] { "explore", "rest", "trade" });
+
+		switch (reason)
+		{
+			case "explore":
+				Console.WriteLine("'Ah, an adventurer!' the old man chuckles. 'Well, you've come to the right place. Our village has many tales to tell.'");
+				Console.WriteLine("One of the villagers approaches you with a worried expression.");
+				Console.WriteLine("He tells you, 'Our elder's favorite walking stick was stolen last night. He's very upset about it. Could you help us find it?'");
+
+				string questResponse = GetValidInput("Will you help find the elder's walking stick? (yes/no)", new string[] { "yes", "no" });
+
+				if (questResponse == "yes")
+				{
+					Console.WriteLine("Great You set off to find the elder's walking stick. Good luck!");
+					// Implement the quest logic here
+				}
+				else
+				{
+					Console.WriteLine("You decline the offer. Perhaps another time.");
+				}
+
+				break;
+			case "rest":
+				Console.WriteLine("'Of course, of course,' the man nods understandingly. 'We have a cozy inn where you can rest your weary feet.'");
+				// Add more story about resting in the village
+				break;
+			case "trade":
+				Console.WriteLine("The man's eyes light up. 'Excellent! Our market is just opening. What sort of goods do you carry?'");
+
+				// Initiate Trading Sequence
+				TradeWithMerchant();
+
+				break;
+		}
+	}
+
+	static void TradeWithMerchant()
+	{
+		// Display player's inventory (assuming you have one)
+		Console.WriteLine("Here's what you have in your inventory:");
+		// Implement logic to display inventory items
+
+		// Display available items from the merchant
+		Console.WriteLine("The merchant offers the following goods:");
+		// Implement logic to display merchant's inventory items with prices
+
+		// Initiate trading loop
+		bool continueTrading = true;
+		while (continueTrading)
+		{
+			Console.WriteLine("What would you like to do? (buy/sell/exit)");
+			string choice = Console.ReadLine().ToLower();
+
+			switch (choice)
+			{
+				case "buy":
+					BuyFromMerchant();
+					break;
+				case "sell":
+					SellToMerchant();
+					break;
+				case "exit":
+					continueTrading = false;
+					Console.WriteLine("Thank you for trading! Come visit again soon.");
+					break;
+				default:
+					Console.WriteLine("Invalid choice. Please choose from buy, sell, or exit.");
+					break;
+			}
+		}
+	}
+
+	static void BuyFromMerchant()
+	{
+		// Display available items from the merchant again
+		Console.WriteLine("The merchant offers the following goods:");
+		// Implement logic to display merchant's inventory items with prices
+
+		Console.WriteLine("What item would you like to buy? (Enter item name or 'cancel')");
+		string itemToBuy = Console.ReadLine();
+
+		// Implement logic to check if item exists in merchant's inventory and perform transaction (deducting gold, adding item to player's inventory)
+		if (itemToBuy == "cancel")
+		{
+			Console.WriteLine("Transaction cancelled.");
+		}
+		else
+		{
+			// Handle successful purchase or inform player of unavailable item
+		}
+	}
+
+	static void SellToMerchant()
+	{
+		// Display player's inventory
+		Console.WriteLine("Here's what you have in your inventory:");
+		// Implement logic to display inventory items
+
+		Console.WriteLine("What item would you like to sell? (Enter item name or 'cancel')");
+		string itemToSell = Console.ReadLine();
+
+		// Implement logic to check if item exists in player's inventory and perform transaction (adding gold, removing item from player's inventory)
+		if (itemToSell == "cancel")
+		{
+			Console.WriteLine("Transaction cancelled.");
+		}
+		else
+		{
+			// Handle successful sale or inform player of unavailable item
+		}
+	}
+
+	static void ObserveVillage()
+	{
+		Console.WriteLine("You decide to observe the village from the edge of the forest.");
+		Console.WriteLine("From your vantage point, you can see the villagers celebrating around the bonfire.");
+		Console.WriteLine("There seems to be some kind of ceremony taking place.");
+
+		string choice = GetValidInput("Do you want to continue watching or sneak closer for a better view? (watch/sneak)", new string[] { "watch", "sneak" });
+
+		switch (choice)
+		{
+			case "watch":
+				Console.WriteLine("You continue to watch from afar. The ceremony appears to be a blessing for a bountiful harvest.");
+				// Add more details about what the player observes
+				break;
+			case "sneak":
+				Console.WriteLine("You carefully sneak closer to get a better view.");
+				Console.WriteLine("As you edge nearer, you accidentally step on a dry twig. It snaps loudly in the quiet night.");
+				Console.WriteLine("A few villagers turn to look in your direction...");
+				// Add more story about being discovered or narrowly avoiding detection
+				break;
+		}
+	}
+}
+here is the WhisperingWoodsAdventure.csproj
+
+$ cat WhisperingWoodsAdventure.csproj
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+
+My initial build will for amd64 x86 linux especially debian and ubuntu.
+
+heres the files in the root of the project
+
+bin  Characters  CODE_OF_CONDUCT.md  CONTRIBUTING.md  Game.cs  Inventory  LICENSE  Location  obj  Program.cs  README.md  SECURITY.md  Utils  WhisperingWoodsAdventure.csproj  WhisperingWoodsAdventure.sln
+
+bin is a generated build directory
+Characters is a directory containing
+CODE_OF_CONDUCT.md is a github file
+CONTRIBUTING.md is a github file
+Game.cs is game logic file, outside of the Program.cs
+Inventory is a directory
+LICENSE is the project liscence currently MIT
+Location is a directory
+obj is a generated build directory
+Program.cs is the above code.
+README.md is a github file
+SECURITY.md is a github file
+Utils is a directory
+WhisperingWoodsAdventure.csproj is the project file
+WhisperingWoodsAdventure.sln is a VS project solution file
+
+Characters contains two files NPC.cs  Player.cs and NPC.cs contains code for the Non-Player Character(s) and Player.cs is the user player(s).
+
+Inventory contains PlayerInventory.cs
+Location contains two files ForestClearing.cs and Villiage.cs
+Utils contains InputHandler.cs
+
+I want to refactor so that Program.cs and Game.cs are the main files. and the current Program.cs gets abstracted into the individual files and directories mentioned above.
+So I want to take whats in Program.cs currently and move it into  the PlayerInventory.cs, NPC.cs, Player.cs, PlayerInventory.cs, ForestClearing.cs, PlayerInventory.cs, Villiage.cs and InputHandler.cs
+the can be called from being imported and used in the Program.cs and/or Game.cs
+
+Here is my current Game.cs
+
+using System;
+using TextAdventureGame.Characters;
+using TextAdventureGame.Inventory;
+using TextAdventureGame.Locations;
+
+namespace TextAdventureGame
+{
+    public class Game
+    {
+        private PlayerCharacter _player;
+        private Location _currentLocation;
+        private Inventory _inventory;
+
+        public Game()
+        {
+            InitializeGame();
+        }
+
+        private void InitializeGame()
+        {
+            _player = new PlayerCharacter("Adventurer");
+            _currentLocation = new ForestClearing();
+            _inventory = new Inventory();
+
+            Console.WriteLine(_currentLocation.Description);
+            HandlePlayerInput();
+        }
+
+        private void HandlePlayerInput()
+        {
+            string input = Console.ReadLine().ToLower();
+
+            switch (input)
+            {
+                case "go north":
+                    GoDirection("north");
+                    break;
+                case "go south":
+                    GoDirection("south");
+                    break;
+                case "pick up":
+                    PickUpItem();
+                    break;
+                case "drop":
+                    DropItem();
+                    break;
+                default:
+                    Console.WriteLine("Invalid command. Try again.");
+                    HandlePlayerInput();
+                    break;
+            }
+        }
+
+        private void GoDirection(string direction)
+        {
+            if (_currentLocation.Exits.TryGetValue(direction, out Location nextLocation))
+            {
+                _currentLocation = nextLocation;
+                Console.WriteLine(_currentLocation.Description);
+                HandlePlayerInput();
+            }
+            else
+            {
+                Console.WriteLine("There's no path in that direction.");
+            }
+        }
+
+        private void PickUpItem()
+        {
+            // Example: Assume there's an item named "sword" in the current location
+            if (_currentLocation.Items.Contains("sword"))
+            {
+                _inventory.AddItem("sword", 1);
+                Console.WriteLine("You picked up a sword.");
+            }
+            else
+            {
+                Console.WriteLine("There's nothing to pick up here.");
+            }
+        }
+
+        private void DropItem()
+        {
+            // Example: Assume the player has a "sword"
+            if (_inventory.Items.ContainsKey("sword"))
+            {
+                _inventory.RemoveItem("sword", 1);
+                Console.WriteLine("You dropped the sword.");
+            }
+            else
+            {
+                Console.WriteLine("You don't have anything to drop.");
+            }
+        }
+    }
+}
+
+here is my InputHandler.cs
+
+using System;
+using System.Linq;
+
+namespace TextAdventureGame
+{
+    public static class InputHandler
+    {
+        public static string GetValidInput(string prompt, string[] validOptions)
+        {
+            string? input;
+            do
+            {
+                Console.WriteLine(prompt);
+                input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    Console.WriteLine("No input received. Please try again.");
+                    continue;
+                }
+
+                input = input.ToLower();
+
+                if (!validOptions.Contains(input))
+                {
+                    Console.WriteLine("Invalid choice. Please choose from the following options:");
+                    foreach (string option in validOptions)
+                    {
+                        Console.WriteLine(option);
+                    }
+                }
+            } while (!validOptions.Contains(input));
+
+            return input!; // At this point, input is guaranteed to be non-null and valid
+        }
+
+        public static int GetValidIntInput(string prompt, int min, int max)
+        {
+            int result;
+            bool isValid;
+
+            do
+            {
+                Console.WriteLine(prompt);
+                isValid = int.TryParse(Console.ReadLine(), out result);
+
+                if (!isValid || result < min || result > max)
+                {
+                    Console.WriteLine($"Please enter a valid number between {min} and {max}.");
+                    isValid = false;
+                }
+            } while (!isValid);
+
+            return result;
+        }
+    }
+}
+
+here is my Villiage.cs
+
+using System.Collections.Generic;
+
+namespace TextAdventureGame.Locations
+{
+    public class Village : Location
+    {
+        public Village()
+            : base("You enter a small, cozy village.")
+        {
+            AddExit("north", new ForestClearing()); // Assuming north leads back to the forest
+            AddExit("east", null); // Assuming east leads to nowhere for now
+        }
+    }
+}
+
+here is my ForestClearing.cs
+
+using System.Collections.Generic;
+
+namespace TextAdventureGame.Locations
+{
+    public class ForestClearing : Location
+    {
+        public ForestClearing()
+            : base("You stand in a dense forest clearing.")
+        {
+            AddExit("north", new Village());
+            AddExit("south", null); // Assuming south leads to nowhere for now
+        }
+    }
+}
+
+here is my PlayerInventory.cs
+
+using System;
+using System.Linq;
+
+namespace TextAdventureGame
+{
+    public static class InputHandler
+    {
+        public static string GetValidInput(string prompt, string[] validOptions)
+        {
+            string? input;
+            do
+            {
+                Console.WriteLine(prompt);
+                input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    Console.WriteLine("No input received. Please try again.");
+                    continue;
+                }
+
+                input = input.ToLower();
+
+                if (!validOptions.Contains(input))
+                {
+                    Console.WriteLine("Invalid choice. Please choose from the following options:");
+                    foreach (string option in validOptions)
+                    {
+                        Console.WriteLine(option);
+                    }
+                }
+            } while (!validOptions.Contains(input));
+
+            return input!; // At this point, input is guaranteed to be non-null and valid
+        }
+
+        public static int GetValidIntInput(string prompt, int min, int max)
+        {
+            int result;
+            bool isValid;
+
+            do
+            {
+                Console.WriteLine(prompt);
+                isValid = int.TryParse(Console.ReadLine(), out result);
+
+                if (!isValid || result < min || result > max)
+                {
+                    Console.WriteLine($"Please enter a valid number between {min} and {max}.");
+                    isValid = false;
+                }
+            } while (!isValid);
+
+            return result;
+        }
+    }
+}
+
+here is my Player.cs
+
+using System.Collections.Generic;
+
+namespace TextAdventureGame.Characters
+{
+    public class PlayerCharacter : Character
+    {
+        public Inventory PlayerInventory { get; set; }
+        public Location CurrentLocation { get; set; }
+        public List<Location> VisitedLocations { get; set; }
+
+        public PlayerCharacter(string name)
+            : base(name, "Hello, adventurer!")
+        {
+            PlayerInventory = new Inventory();
+            CurrentLocation = null;
+            VisitedLocations = new List<Location>();
+        }
+
+        public void MoveTo(Location destination)
+        {
+            if (destination != null)
+            {
+                Console.WriteLine($"You travel to the {destination.Description}.");
+                CurrentLocation = destination;
+                VisitedLocations.Add(destination);
+            }
+            else
+            {
+                Console.WriteLine("Destination not found.");
+            }
+        }
+
+        public void PickUp(Item item)
+        {
+            if (item != null)
+            {
+                PlayerInventory.AddItem(item.Name, 1);
+                Console.WriteLine($"You picked up a {item.Name}.");
+            }
+            else
+            {
+                Console.WriteLine("Nothing to pick up.");
+            }
+        }
+
+        public void DropItem(Item item)
+        {
+            if (PlayerInventory.RemoveItem(item.Name, 1))
+            {
+                Console.WriteLine($"You dropped a {item.Name}.");
+            }
+            else
+            {
+                Console.WriteLine("You don't have that item to drop.");
+            }
+        }
+
+        public void InteractWith(NonPlayerCharacter npc)
+        {
+            if (npc != null)
+            {
+                npc.Speak();
+                // Additional logic for interacting with NPCs can be added here.
+            }
+            else
+            {
+                Console.WriteLine("No one to interact with.");
+            }
+        }
+    }
+}
+
+Here is my NPC.csproj
+
+using System.Collections.Generic;
+
+namespace TextAdventureGame.Characters
+{
+    public class NonPlayerCharacter : Character
+    {
+        public string Quest { get; set; }
+        public bool HasQuest { get; set; }
+        public List<string> DialogueLines { get; set; }
+
+        public NonPlayerCharacter(string name, string dialogue, string quest = null)
+            : base(name, dialogue)
+        {
+            Name = name;
+            DialogueLines = new List<string> { dialogue };
+            Quest = quest;
+            HasQuest = !string.IsNullOrEmpty(Quest);
+        }
+
+        public void GiveQuest(string questDescription)
+        {
+            Quest = questDescription;
+            HasQuest = true;
+        }
+
+        public override void Speak()
+        {
+            var randomIndex = new Random().Next(DialogueLines.Count);
+            Console.WriteLine(DialogueLines[randomIndex]);
+        }
+    }
+}
+
+here is my current `dotnet run`
+
+$ dotnet run
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Program.cs(4,7): error CS0101: The namespace '<global namespace>' already contains a definition for 'TextAdventureGame' [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Utils/InputHandler.cs(6,25): error CS0101: The namespace 'TextAdventureGame' already contains a definition for 'InputHandler' [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/NPC.cs(5,39): error CS0246: The type or namespace name 'Character' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Location/ForestClearing.cs(5,35): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(5,36): error CS0246: The type or namespace name 'Character' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Location/Villiage.cs(5,28): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(7,16): error CS0246: The type or namespace name 'Inventory' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Game.cs(10,17): error CS0246: The type or namespace name 'PlayerCharacter' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Game.cs(11,17): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Game.cs(12,17): error CS0246: The type or namespace name 'Inventory' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(8,16): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(9,21): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(19,28): error CS0246: The type or namespace name 'Location' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Utils/InputHandler.cs(8,30): error CS0111: Type 'InputHandler' already defines a member called 'GetValidInput' with the same parameter types [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Utils/InputHandler.cs(37,27): error CS0111: Type 'InputHandler' already defines a member called 'GetValidIntInput' with the same parameter types [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(33,28): error CS0246: The type or namespace name 'Item' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/Player.cs(46,30): error CS0246: The type or namespace name 'Item' could not be found (are you missing a using directive or an assembly reference?) [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+/home/gbowne1/Documents/WhisperingWoodsAdventure/Characters/NPC.cs(11,80): warning CS8625: Cannot convert null literal to non-nullable reference type. [/home/gbowne1/Documents/WhisperingWoodsAdventure/WhisperingWoodsAdventure.csproj]
+
+The build failed. Fix the build errors and run again.
+

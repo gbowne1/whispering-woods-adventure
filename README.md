@@ -7,12 +7,13 @@
 Whispering Woods Adventure is a C# console application that takes you on a text-based journey through a mysterious forest. Make choices, explore different paths, and uncover the secrets of the Whispering Woods.
 
 ## Table of Contents
+
 - [Whispering Woods Adventure](#whispering-woods-adventure)
-	- [Table of Contents](#table-of-contents)
-	- [Installation](#installation)
-	- [Usage](#usage)
-	- [Contributing](#contributing)
-	- [License](#license)
+ 	- [Table of Contents](#table-of-contents)
+ 	- [Installation](#installation)
+ 	- [Usage](#usage)
+ 	- [Contributing](#contributing)
+ 	- [License](#license)
 
 ## Installation
 
