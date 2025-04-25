@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>WhisperingWoodsAdventure</RootNamespace>
     <Nullable>enable</Nullable>
-    <RootNamespace>TextAdventureGame</RootNamespace> <!-- Add this line -->
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Game.cs" /> <!-- Add this line -->
-    <Compile Include="Game.cs" /> <!-- Add this line -->
+   
   </ItemGroup>
+
 </Project>

@@ -1,57 +1,49 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace TextAdventureGame
+namespace WhisperingWoodsAdventure.Models
 {
-    public static class InputHandler
+    /// <summary>
+    /// Manages the player's inventory of items.
+    /// </summary>
+    public class PlayerInventory
     {
-        public static string GetValidInput(string prompt, string[] validOptions)
+        private readonly List<Item> _items = new();
+
+        /// <summary>
+        /// Adds an item to the inventory.
+        /// </summary>
+        /// <param name="item">The item to add.</param>
+        public void AddItem(Item item) => _items.Add(item);
+
+        /// <summary>
+        /// Removes an item from the inventory.
+        /// </summary>
+        /// <param name="item">The item to remove.</param>
+        public void RemoveItem(Item item) => _items.Remove(item);
+
+        /// <summary>
+        /// Checks if the inventory contains an item by name.
+        /// </summary>
+        /// <param name="itemName">The name of the item.</param>
+        /// <returns>True if the item exists; otherwise, false.</returns>
+        public bool HasItem(string itemName) =>
+            _items.Any(i => i.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
+
+        /// <summary>
+        /// Lists all items in the inventory.
+        /// </summary>
+        public void ListItems()
         {
-            string? input;
-            do
+            if (!_items.Any())
             {
-                Console.WriteLine(prompt);
-                input = Console.ReadLine();
+                Console.WriteLine("Your inventory is empty.");
+                return;
+            }
 
-                if (string.IsNullOrEmpty(input))
-                {
-                    Console.WriteLine("No input received. Please try again.");
-                    continue;
-                }
-
-                input = input.ToLower();
-
-                if (!validOptions.Contains(input))
-                {
-                    Console.WriteLine("Invalid choice. Please choose from the following options:");
-                    foreach (string option in validOptions)
-                    {
-                        Console.WriteLine(option);
-                    }
-                }
-            } while (!validOptions.Contains(input));
-
-            return input!; // At this point, input is guaranteed to be non-null and valid
-        }
-
-        public static int GetValidIntInput(string prompt, int min, int max)
-        {
-            int result;
-            bool isValid;
-
-            do
-            {
-                Console.WriteLine(prompt);
-                isValid = int.TryParse(Console.ReadLine(), out result);
-
-                if (!isValid || result < min || result > max)
-                {
-                    Console.WriteLine($"Please enter a valid number between {min} and {max}.");
-                    isValid = false;
-                }
-            } while (!isValid);
-
-            return result;
+            Console.WriteLine("Inventory:");
+            foreach (var item in _items)
+                Console.WriteLine($"- {item.Name}: {item.Description}");
         }
     }
 }

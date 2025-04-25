@@ -1,17 +1,10 @@
-using System;
-using TextAdventureGame;
+﻿using WhisperingWoodsAdventure.GameLogic;
 
-namespace TextAdventureGame
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            // Create a Game instance
-            Game game = new Game();
-
-            // Start the game loop
-            game.Run();
-        }
+        var game = new Game();
+        game.Start();
     }
 }
