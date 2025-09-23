@@ -6,26 +6,33 @@
 Whispering Woods Adventure
 
 ## Genre
+
 Text-based adventure game with elements of exploration, puzzle-solving, and light RPG mechanics. Inspired by classic games like Zork and Colossal Cave Adventure (aka Adventure), with some open-world influences from Runescape, such as resource gathering, NPC interactions, and a dynamic world.
-1.3 Platform and Technology
+
+## Platform and Technology
 
 Runtime Environment: .NET 7 or .NET 8 (cross-compatible where possible).
 
 Development Tool: This was initially created using `dotnet new console` for a terminal-based application.
 
-Input/Output: Runs in terminal/shell environments (e.g., cmd, PowerShell, bash, Git Bash) with text input for commands and text output for descriptions, status, and feedback.
+Input/Output: Runs in terminal/shell environments with text input for commands and text output for descriptions, status, and feedback.
 
-Dependencies: Core .NET libraries including System, System.Collections.Generic, and System.Linq. No external NuGet packages unless explicitly added for fun (e.g., for JSON serialization if saving/loading is implemented).
+Dependencies: Core .NET libraries including System, System.Collections.Generic, and System.Linq. No external NuGet packages unless explicitly added (e.g., for JSON serialization if saving/loading is implemented).
 
 ## Project Structure:
 
-## Root: Program.cs (entry point for the game loop).
+## Root
 
-Namespaces/Folders:
+Program.cs (entry point for the game loop).
+
+## Namespaces/Folders
 
 GameLogic: Handles core mechanics like command parsing, event handling, and game state updates.
+
 Models: Data classes for entities like Character, Item, Location, NPC, and Player.
+
 Inventory: Manages player and NPC inventories, item interactions.
+
 Scenes: Defines areas, paths, villages, and their connections (e.g., via Location models).
 
 ## Key Constraints:
@@ -35,12 +42,12 @@ loaded from configurable sources like JSON files, resource files, or in-memory d
 
 This is a non-commercial, fun project for personal development and potential collaboration.
 
-1.4 Target Audience
+## Target Audience
 
 Hobbyist developers, retro game enthusiasts, and players who enjoy narrative-driven text adventures. 
 Assumes players are comfortable with typing commands in a terminal.
 
-1.5 High-Level Goals
+## High-Level Goals
 
 Create an immersive world centered around a mysterious whispering forest with 8 villages connected by roads.
 Incorporate environmental dynamics like weather, day/night cycles, seasons, and time to affect gameplay.
@@ -49,20 +56,21 @@ Allow for extensible story, features, and content via a modular design.
 ## Story and World Building
 
 ## Setting
+
 The game is set in a fantastical world called the Whispering Woods, a vast enchanted forest filled with secrets, creatures, and ancient magic. At the heart is a central Forest Clearing, from which 8 roads radiate in different directions (North, South, East, West, Northeast, Northwest, Southeast, Southwest) leading to 8 unique villages. Each village has its own theme, culture, and quests.
 
 Central Hub: Forest Clearing – A neutral starting point with whispers from the trees hinting at lore.
 
 Villages (Fill in blanks for themes, key features, and connections):
 
-Village 1: 
-Village 2: 
-Village 3: 
-Village 4: 
-Village 5: 
-Village 6: 
-Village 7: 
-Village 8: 
+Village 1: Elderglow  A village illuminated by ancient, glowing lanterns, suggesting wisdom and warmth.
+Village 2: Mistvale  A cozy hamlet surrounded by thorny brambles, hinting at hidden secrets.
+Village 3: Bramblewick
+Village 4: Starhollow
+Viliage 5: Willowshade
+Village 6: Duskbloom
+Village 7: Oakenspire
+Village 8: Farrowfen
 
 Roads/Paths: Each road is a series of connected Locations (e.g., "Winding Path North", "Overgrown Trail"). They may include encounters, puzzles, or environmental hazards.
 
@@ -151,12 +159,12 @@ Inventory: InventoryManager.cs for handling additions/removals.
 Scenes: SceneLoader.cs to load locations from config (e.g., JSON files for descriptions/exits).
 Configuration: Use JSON/XML files for all descriptions, dialogues, etc., to avoid hard-coding. Load at startup.
 
-4.2 Data Loading
+## Data Loading
 
 Locations, Items, NPCs: Defined in data files (e.g., locations.json with graph for connections).
 Dynamic Descriptions: Use templates with placeholders (e.g., "{location} is {weather-adjective} today.").
 
-4.3 Extensibility
+## Extensibility
 
 Modular: Add new Locations by extending models and data files.
 Events: Use delegates/events for weather changes, time ticks.
@@ -186,7 +194,8 @@ Specific item/NPC examples.
 Detailed plot branches.
 Custom commands or mechanics.
 
-6.2 Inspirations and References
+## Inspirations and References
+
 Zork, Adventure, Runescape, etc.
 Zork: Command parsing, puzzles.
 Adventure: Exploration, treasures.
